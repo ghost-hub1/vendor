@@ -1,5 +1,5 @@
 <?php
-include 'includes/header.php';
+require_once __DIR__ . '/includes/header.php';
 
 // Process form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -185,4 +185,4 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-<?php include 'includes/footer.php'; ?>
+<?php require_once __DIR__ . '/includes/footer.php'; ?>

@@ -1,4 +1,4 @@
-<?php include 'includes/header.php'; ?>
+<?php require_once __DIR__ . '/includes/header.php'; ?>
 
 <!-- Enhanced Hero Section -->
 <section class="hero-section">
@@ -396,4 +396,4 @@
     </div>
 </section>
 
-<?php include 'includes/footer.php'; ?>
+<?php require_once __DIR__ . '/includes/footer.php'; ?>
