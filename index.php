@@ -72,7 +72,7 @@
                 <img src="assets/images/logitech-logo.png" alt="Logitech" class="img-fluid" style="height: 30px;">
             </div>
             <div class="col-6 col-md-3 col-lg-2 text-center">
-                <img src="assets/images/hp-logo.png" alt="HP" class="img-fluid" style="height: 35px;">
+                <img src="assets/images/hp-logo.WEBP" alt="HP" class="img-fluid" style="height: 35px;">
             </div>
         </div>
     </div>
