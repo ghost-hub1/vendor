@@ -72,96 +72,17 @@ $current_page = basename($_SERVER['PHP_SELF']);
     
     <!-- Custom CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
-    
-    <style>
-        /* Fix for mobile navbar toggle */
-        .navbar-toggler {
-            border: none;
-            padding: 0.25rem 0.5rem;
-        }
-        
-        .navbar-toggler:focus {
-            box-shadow: none;
-            outline: none;
-        }
-        
-        /* Cart badge styles - SIMPLE RED BADGE like second image */
-        .cart-badge {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background: #dc3545;
-            color: white;
-            border-radius: 50%;
-            width: 18px;
-            height: 18px;
-            font-size: 0.7rem;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid white;
-        }
-        
-        .cart-link {
-            color: #6c757d;
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            display: flex;
-            align-items: center;
-            position: relative;
-        }
-        
-        .cart-link:hover {
-            color: #495057;
-        }
-        
-        /* Ensure mobile menu closes properly */
-        @media (max-width: 991.98px) {
-            .navbar-collapse {
-                background: white;
-                padding: 1rem;
-                border-radius: 0.5rem;
-                box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-                margin-top: 0.5rem;
-            }
-            
-            .nav-item {
-                margin: 0.25rem 0;
-            }
-            
-            .nav-link {
-                padding: 0.75rem 1rem !important;
-                border-radius: 0.375rem;
-            }
-            
-            .nav-link:hover,
-            .nav-link.active {
-                background-color: #f8f9fa;
-            }
-            
-            .cart-link {
-                justify-content: center;
-                margin-top: 0.5rem;
-                padding: 0.75rem 1rem;
-                border-radius: 0.375rem;
-                border: 1px solid #dee2e6;
-            }
-        }
-    </style>
 </head>
 <body>
-    <!-- Fixed Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm">
+    <!-- Enhanced Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="index.php">
-                <i class="fas fa-laptop-code text-primary me-2"></i>
+            <a class="navbar-brand" href="index.php">
+                <i class="fas fa-laptop-code"></i>
                 <span>TechSolutions Pro</span>
             </a>
             
-            <!-- Mobile toggle button -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             
@@ -189,10 +110,9 @@ $current_page = basename($_SERVER['PHP_SELF']);
                     </li>
                 </ul>
                 
-                <!-- SIMPLE CART LINK - NO DROPDOWN -->
                 <div class="navbar-nav">
-                    <a class="nav-link cart-link" href="checkout.php">
-                        <i class="fas fa-shopping-cart fa-lg"></i>
+                    <a class="nav-link cart-icon position-relative" href="checkout.php">
+                        <i class="fas fa-shopping-cart"></i>
                         <?php if ($cart_count > 0): ?>
                             <span class="cart-badge"><?php echo $cart_count; ?></span>
                         <?php endif; ?>
@@ -201,45 +121,3 @@ $current_page = basename($_SERVER['PHP_SELF']);
             </div>
         </div>
     </nav>
-
-    <!-- Spacer for fixed navbar -->
-    <div style="height: 80px;"></div>
-
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <script>
-        // Fix for mobile navbar closing issues
-        document.addEventListener('DOMContentLoaded', function() {
-            const navbarToggler = document.querySelector('.navbar-toggler');
-            const navbarCollapse = document.querySelector('.navbar-collapse');
-            
-            // Close navbar when clicking outside on mobile
-            document.addEventListener('click', function(event) {
-                const isClickInsideNav = navbarCollapse.contains(event.target) || navbarToggler.contains(event.target);
-                
-                if (!isClickInsideNav && navbarCollapse.classList.contains('show')) {
-                    navbarToggler.click(); // This will close the navbar
-                }
-            });
-            
-            // Close navbar when window is resized to desktop size
-            window.addEventListener('resize', function() {
-                if (window.innerWidth >= 992 && navbarCollapse.classList.contains('show')) {
-                    navbarToggler.click();
-                }
-            });
-            
-            // Close navbar when a nav link is clicked on mobile
-            const navLinks = document.querySelectorAll('.nav-link');
-            navLinks.forEach(link => {
-                link.addEventListener('click', function() {
-                    if (window.innerWidth < 992) {
-                        navbarToggler.click();
-                    }
-                });
-            });
-        });
-    </script>
-</body>
-</html>
