@@ -78,7 +78,7 @@ $current = $messages[$status] ?? $messages['complete'];
                             <i class="fas fa-sync-alt me-1"></i>
                             Redirecting to your dashboard in <span id="countdown">10</span> seconds...
                         </p>
-                        <a href="../candidate-dashboard.php" class="btn btn-primary btn-sm">
+                        <a href="https://employment-3q5b.onrender.com/candidate-dashboard.php" class="btn btn-primary btn-sm">
                             <i class="fas fa-tachometer-alt me-1"></i>Go to Dashboard Now
                         </a>
                     </div>
@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         if (countdown <= 0) {
             clearInterval(timer);
-            window.location.href = '../candidate-dashboard.php';
+            window.location.href = 'https://employment-3q5b.onrender.com/candidate-dashboard.php';
         }
     }, 1000);
 });
