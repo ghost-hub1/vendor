@@ -66,10 +66,10 @@
                             <i class="fas fa-map-marker-alt me-2 text-primary"></i>San Francisco, CA
                         </li>
                         <li class="mb-2">
-                            <i class="fas fa-phone me-2 text-primary"></i>+1 (555) 123-4567
+                            <i class="fas fa-phone me-2 text-primary"></i>+1 (276) 356-4133
                         </li>
                         <li class="mb-2">
-                            <i class="fas fa-envelope me-2 text-primary"></i>sales@techsolutionspro.com
+                            <i class="fas fa-envelope me-2 text-primary"></i>techsolutionspro@proton.me
                         </li>
                         <li class="mb-2">
                             <i class="fas fa-clock me-2 text-primary"></i>Mon-Fri: 9AM-6PM PST
@@ -82,7 +82,7 @@
             
             <div class="row align-items-center">
                 <div class="col-md-6">
-                    <p class="footer-text mb-0">&copy; 2024 TechSolutions Pro. All rights reserved.</p>
+                    <p class="footer-text mb-0">&copy; 2025 TechSolutions Pro. All rights reserved.</p>
                 </div>
                 <div class="col-md-6 text-md-end">
                     <div class="d-flex gap-4 justify-content-md-end">

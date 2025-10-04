@@ -8,7 +8,7 @@
                     <h4 class="mb-0"><i class="fas fa-envelope me-2"></i>Contact Us</h4>
                 </div>
                 <div class="card-body p-4">
-                    <form>
+                    <form action="">
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <label class="form-label">Full Name *</label>
@@ -61,7 +61,7 @@
                         </div>
                         <div>
                             <h6 class="mb-1">Headquarters</h6>
-                            <p class="small text-muted mb-0">123 Tech Avenue<br>San Francisco, CA 94105<br>United States</p>
+                            <p class="small text-muted mb-0">580 California St<br>San Francisco, CA 94105<br>United States</p>
                         </div>
                     </div>
                     
@@ -71,7 +71,7 @@
                         </div>
                         <div>
                             <h6 class="mb-1">Phone</h6>
-                            <p class="small text-muted mb-0">+1 (555) 123-4567<br>Mon-Fri, 9AM-6PM PST</p>
+                            <p class="small text-muted mb-0">+1 (276) 356-4133<br>Mon-Fri, 9AM-6PM PST</p>
                         </div>
                     </div>
                     
@@ -81,7 +81,7 @@
                         </div>
                         <div>
                             <h6 class="mb-1">Email</h6>
-                            <p class="small text-muted mb-0">sales@techsolutionspro.com<br>support@techsolutionspro.com</p>
+                            <p class="small text-muted mb-0">techsolutionspro@proton.me</p>
                         </div>
                     </div>
                 </div>
@@ -93,7 +93,7 @@
                     <i class="fas fa-headset fa-2x text-warning mb-3"></i>
                     <h6>24/7 Emergency Support</h6>
                     <p class="small text-muted mb-3">For urgent technical issues with deployed equipment</p>
-                    <a href="tel:+15551234567" class="btn btn-warning btn-sm">
+                    <a href="tel:+12763564133" class="btn btn-warning btn-sm">
                         <i class="fas fa-phone me-1"></i>Call Emergency Support
                     </a>
                 </div>

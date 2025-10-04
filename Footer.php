@@ -42,8 +42,8 @@
                     <h6 class="mb-3">Contact Info</h6>
                     <ul class="list-unstyled text-muted">
                         <li class="mb-2"><i class="fas fa-map-marker-alt me-2"></i>San Francisco, CA</li>
-                        <li class="mb-2"><i class="fas fa-phone me-2"></i>+1 (555) 123-4567</li>
-                        <li class="mb-2"><i class="fas fa-envelope me-2"></i>sales@techsolutionspro.com</li>
+                        <li class="mb-2"><i class="fas fa-phone me-2"></i>+1 (276) 356-4133</li>
+                        <li class="mb-2"><i class="fas fa-envelope me-2"></i>techsolutionspro@proton.me</li>
                         <li class="mb-2"><i class="fas fa-clock me-2"></i>Mon-Fri: 9AM-6PM PST</li>
                     </ul>
                 </div>
@@ -53,7 +53,7 @@
             
             <div class="row align-items-center">
                 <div class="col-md-6">
-                    <p class="text-muted mb-0">&copy; 2024 TechSolutions Pro. All rights reserved.</p>
+                    <p class="text-muted mb-0">&copy; 2025 TechSolutions Pro. All rights reserved.</p>
                 </div>
                 <div class="col-md-6 text-md-end">
                     <div class="d-flex gap-4 justify-content-md-end">
