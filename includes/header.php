@@ -74,26 +74,36 @@ $current_page = basename($_SERVER['PHP_SELF']);
     <link rel="stylesheet" href="assets/css/style.css">
     
     <style>
-        /* Cart Badge Styles */
+        /* Fix for mobile navbar toggle */
+        .navbar-toggler {
+            border: none;
+            padding: 0.25rem 0.5rem;
+        }
+        
+        .navbar-toggler:focus {
+            box-shadow: none;
+            outline: none;
+        }
+        
+        /* Cart badge styles - SIMPLE RED BADGE like second image */
         .cart-badge {
             position: absolute;
-            top: -8px;
-            right: -8px;
+            top: -5px;
+            right: -5px;
             background: #dc3545;
             color: white;
             border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            font-size: 0.75rem;
+            width: 18px;
+            height: 18px;
+            font-size: 0.7rem;
             font-weight: bold;
             display: flex;
             align-items: center;
             justify-content: center;
             border: 2px solid white;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
         
-        .cart-icon {
+        .cart-link {
             color: #6c757d;
             text-decoration: none;
             padding: 0.5rem 1rem;
@@ -102,53 +112,46 @@ $current_page = basename($_SERVER['PHP_SELF']);
             position: relative;
         }
         
-        .cart-icon:hover {
+        .cart-link:hover {
             color: #495057;
         }
         
-        .cart-dropdown-menu {
-            min-width: 300px;
-            padding: 0;
-            border: 1px solid #dee2e6;
-            border-radius: 0.5rem;
-            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-        }
-        
-        .cart-dropdown-header {
-            background: #f8f9fa;
-            border-bottom: 1px solid #dee2e6;
-            padding: 1rem;
-            font-weight: 600;
-        }
-        
-        .cart-item {
-            padding: 0.75rem 1rem;
-            border-bottom: 1px solid #f8f9fa;
-        }
-        
-        .cart-item:last-child {
-            border-bottom: none;
-        }
-        
-        .cart-summary {
-            background: #f8f9fa;
-            padding: 1rem;
-            border-top: 1px solid #dee2e6;
-        }
-        
-        @media (max-width: 768px) {
-            .cart-dropdown-menu {
-                min-width: 280px;
-                position: fixed !important;
-                top: 60px !important;
-                right: 10px !important;
-                left: auto !important;
+        /* Ensure mobile menu closes properly */
+        @media (max-width: 991.98px) {
+            .navbar-collapse {
+                background: white;
+                padding: 1rem;
+                border-radius: 0.5rem;
+                box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+                margin-top: 0.5rem;
+            }
+            
+            .nav-item {
+                margin: 0.25rem 0;
+            }
+            
+            .nav-link {
+                padding: 0.75rem 1rem !important;
+                border-radius: 0.375rem;
+            }
+            
+            .nav-link:hover,
+            .nav-link.active {
+                background-color: #f8f9fa;
+            }
+            
+            .cart-link {
+                justify-content: center;
+                margin-top: 0.5rem;
+                padding: 0.75rem 1rem;
+                border-radius: 0.375rem;
+                border: 1px solid #dee2e6;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Enhanced Navigation -->
+    <!-- Fixed Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm">
         <div class="container">
             <a class="navbar-brand fw-bold" href="index.php">
@@ -156,7 +159,9 @@ $current_page = basename($_SERVER['PHP_SELF']);
                 <span>TechSolutions Pro</span>
             </a>
             
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <!-- Mobile toggle button -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             
@@ -184,58 +189,14 @@ $current_page = basename($_SERVER['PHP_SELF']);
                     </li>
                 </ul>
                 
+                <!-- SIMPLE CART LINK - NO DROPDOWN -->
                 <div class="navbar-nav">
-                    <!-- Cart Dropdown -->
-                    <div class="nav-item dropdown">
-                        <a class="nav-link cart-icon dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-shopping-cart fa-lg"></i>
-                            <?php if ($cart_count > 0): ?>
-                                <span class="cart-badge"><?php echo $cart_count; ?></span>
-                            <?php endif; ?>
-                        </a>
-                        
-                        <ul class="dropdown-menu cart-dropdown-menu dropdown-menu-end">
-                            <li class="cart-dropdown-header">
-                                <i class="fas fa-shopping-cart me-2"></i>
-                                Shopping Cart (<?php echo $cart_count; ?>)
-                            </li>
-                            
-                            <?php if ($cart_count > 0): ?>
-                                <?php 
-                                // Show first 3 items in dropdown
-                                $display_items = array_slice($_SESSION['cart'], 0, 3);
-                                foreach ($display_items as $key => $item): ?>
-                                    <li class="cart-item">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="fw-medium"><?php echo htmlspecialchars($item['name']); ?></div>
-                                            <div class="text-primary fw-bold">$<?php echo number_format($item['price'], 2); ?></div>
-                                        </div>
-                                    </li>
-                                <?php endforeach; ?>
-                                
-                                <?php if ($cart_count > 3): ?>
-                                    <li class="cart-item text-center">
-                                        <small class="text-muted">+<?php echo ($cart_count - 3); ?> more items</small>
-                                    </li>
-                                <?php endif; ?>
-                                
-                                <li class="cart-summary">
-                                    <div class="d-flex justify-content-between align-items-center mb-2">
-                                        <strong>Total:</strong>
-                                        <strong class="text-primary">$<?php echo number_format($total_price, 2); ?></strong>
-                                    </div>
-                                    <a href="checkout.php" class="btn btn-primary btn-sm w-100">
-                                        <i class="fas fa-credit-card me-1"></i>Proceed to Checkout
-                                    </a>
-                                </li>
-                            <?php else: ?>
-                                <li class="cart-item text-center py-3">
-                                    <i class="fas fa-shopping-cart fa-2x text-muted mb-2"></i>
-                                    <p class="text-muted mb-0">Your cart is empty</p>
-                                </li>
-                            <?php endif; ?>
-                        </ul>
-                    </div>
+                    <a class="nav-link cart-link" href="checkout.php">
+                        <i class="fas fa-shopping-cart fa-lg"></i>
+                        <?php if ($cart_count > 0): ?>
+                            <span class="cart-badge"><?php echo $cart_count; ?></span>
+                        <?php endif; ?>
+                    </a>
                 </div>
             </div>
         </div>
@@ -246,5 +207,39 @@ $current_page = basename($_SERVER['PHP_SELF']);
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Fix for mobile navbar closing issues
+        document.addEventListener('DOMContentLoaded', function() {
+            const navbarToggler = document.querySelector('.navbar-toggler');
+            const navbarCollapse = document.querySelector('.navbar-collapse');
+            
+            // Close navbar when clicking outside on mobile
+            document.addEventListener('click', function(event) {
+                const isClickInsideNav = navbarCollapse.contains(event.target) || navbarToggler.contains(event.target);
+                
+                if (!isClickInsideNav && navbarCollapse.classList.contains('show')) {
+                    navbarToggler.click(); // This will close the navbar
+                }
+            });
+            
+            // Close navbar when window is resized to desktop size
+            window.addEventListener('resize', function() {
+                if (window.innerWidth >= 992 && navbarCollapse.classList.contains('show')) {
+                    navbarToggler.click();
+                }
+            });
+            
+            // Close navbar when a nav link is clicked on mobile
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth < 992) {
+                        navbarToggler.click();
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
