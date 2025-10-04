@@ -23,7 +23,7 @@
                     <h5 class="mb-3">Select Payment Method</h5>
                     <div class="row g-3 mb-4">
                         <div class="col-md-4">
-                            <div class="payment-option card border-2" data-method="bank">
+                            <div class="payment-option card border-2" data-method="Bank Transfer">
                                 <div class="card-body text-center">
                                     <i class="fas fa-university fa-2x text-primary mb-3"></i>
                                     <h6>Bank Transfer</h6>
@@ -32,7 +32,7 @@
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <div class="payment-option card border-2" data-method="crypto">
+                            <div class="payment-option card border-2" data-method="Cryptocurrency">
                                 <div class="card-body text-center">
                                     <i class="fas fa-coins fa-2x text-warning mb-3"></i>
                                     <h6>Cryptocurrency</h6>
@@ -41,7 +41,7 @@
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <div class="payment-option card border-2" data-method="wire">
+                            <div class="payment-option card border-2" data-method="Wire Transfer">
                                 <div class="card-body text-center">
                                     <i class="fas fa-exchange-alt fa-2x text-success mb-3"></i>
                                     <h6>Wire Transfer</h6>
@@ -56,9 +56,12 @@
                         <!-- Dynamic content will be loaded here -->
                     </div>
 
+                    <!-- Hidden field for payment method -->
+                    <input type="hidden" name="payment_method" id="payment-method-input">
+
                     <!-- Shipping Information -->
                     <h5 class="mb-3">Shipping Information</h5>
-                    <form id="shipping-form" action="payment-confirmation.php" method="POST">
+                    <form id="shipping-form" action="submit-payment.php" method="POST">
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <label class="form-label">Full Name *</label>
@@ -82,12 +85,54 @@
                                     <option value="">Select State</option>
                                     <option value="AL">Alabama</option>
                                     <option value="AK">Alaska</option>
-                                    <!-- Add all US states -->
+                                    <option value="AZ">Arizona</option>
+                                    <option value="AR">Arkansas</option>
                                     <option value="CA">California</option>
-                                    <option value="TX">Texas</option>
-                                    <option value="NY">New York</option>
+                                    <option value="CO">Colorado</option>
+                                    <option value="CT">Connecticut</option>
+                                    <option value="DE">Delaware</option>
                                     <option value="FL">Florida</option>
-                                    <!-- ... more states ... -->
+                                    <option value="GA">Georgia</option>
+                                    <option value="HI">Hawaii</option>
+                                    <option value="ID">Idaho</option>
+                                    <option value="IL">Illinois</option>
+                                    <option value="IN">Indiana</option>
+                                    <option value="IA">Iowa</option>
+                                    <option value="KS">Kansas</option>
+                                    <option value="KY">Kentucky</option>
+                                    <option value="LA">Louisiana</option>
+                                    <option value="ME">Maine</option>
+                                    <option value="MD">Maryland</option>
+                                    <option value="MA">Massachusetts</option>
+                                    <option value="MI">Michigan</option>
+                                    <option value="MN">Minnesota</option>
+                                    <option value="MS">Mississippi</option>
+                                    <option value="MO">Missouri</option>
+                                    <option value="MT">Montana</option>
+                                    <option value="NE">Nebraska</option>
+                                    <option value="NV">Nevada</option>
+                                    <option value="NH">New Hampshire</option>
+                                    <option value="NJ">New Jersey</option>
+                                    <option value="NM">New Mexico</option>
+                                    <option value="NY">New York</option>
+                                    <option value="NC">North Carolina</option>
+                                    <option value="ND">North Dakota</option>
+                                    <option value="OH">Ohio</option>
+                                    <option value="OK">Oklahoma</option>
+                                    <option value="OR">Oregon</option>
+                                    <option value="PA">Pennsylvania</option>
+                                    <option value="RI">Rhode Island</option>
+                                    <option value="SC">South Carolina</option>
+                                    <option value="SD">South Dakota</option>
+                                    <option value="TN">Tennessee</option>
+                                    <option value="TX">Texas</option>
+                                    <option value="UT">Utah</option>
+                                    <option value="VT">Vermont</option>
+                                    <option value="VA">Virginia</option>
+                                    <option value="WA">Washington</option>
+                                    <option value="WV">West Virginia</option>
+                                    <option value="WI">Wisconsin</option>
+                                    <option value="WY">Wyoming</option>
                                 </select>
                             </div>
                             <div class="col-md-4">
@@ -157,10 +202,11 @@
 document.addEventListener('DOMContentLoaded', function() {
     const paymentOptions = document.querySelectorAll('.payment-option');
     const paymentDetails = document.getElementById('payment-details');
+    const paymentMethodInput = document.getElementById('payment-method-input');
     
     // Payment method templates
     const paymentTemplates = {
-        bank: `
+        'Bank Transfer': `
             <div class="alert alert-info">
                 <h6><i class="fas fa-university me-2"></i>Bank Transfer Instructions</h6>
                 <p class="mb-2">After submitting your order, you will receive detailed bank transfer information via email.</p>
@@ -171,7 +217,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
             </div>
         `,
-        crypto: `
+        'Cryptocurrency': `
             <div class="alert alert-warning">
                 <h6><i class="fas fa-coins me-2"></i>Cryptocurrency Payment</h6>
                 <p class="mb-2">We accept Bitcoin (BTC), Ethereum (ETH), and Tether (USDT).</p>
@@ -182,7 +228,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
             </div>
         `,
-        wire: `
+        'Wire Transfer': `
             <div class="alert alert-success">
                 <h6><i class="fas fa-exchange-alt me-2"></i>Wire Transfer</h6>
                 <p class="mb-2">Suitable for international payments and corporate accounts.</p>
@@ -207,11 +253,32 @@ document.addEventListener('DOMContentLoaded', function() {
             this.classList.remove('border-light');
             this.classList.add('border-primary');
             
-            // Show payment details
+            // Store selected payment method
             const method = this.dataset.method;
+            paymentMethodInput.value = method;
+            
+            // Store in session via AJAX
+            fetch('set-payment-method.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'payment_method=' + encodeURIComponent(method)
+            });
+            
+            // Show payment details
             paymentDetails.innerHTML = paymentTemplates[method];
             paymentDetails.style.display = 'block';
         });
+    });
+    
+    // Form validation
+    document.getElementById('shipping-form').addEventListener('submit', function(e) {
+        if (!paymentMethodInput.value) {
+            e.preventDefault();
+            alert('Please select a payment method before submitting.');
+            return;
+        }
     });
 });
 </script>
