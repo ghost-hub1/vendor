@@ -116,21 +116,32 @@ $current_page = basename($_SERVER['PHP_SELF']);
             }
         }
         
-        /* Cart Icon Styling */
-        .cart-icon {
-            position: relative;
-            color: #e2e8f0 !important;
-            font-size: 1.2rem;
+        /* Cart Icon Styling - FIXED */
+        .cart-icon-container {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem;
         }
         
-        .cart-icon:hover {
-            color: #3b82f6 !important;
+        .cart-icon-link {
+            position: relative;
+            color: #e2e8f0;
+            font-size: 1.3rem;
+            text-decoration: none;
+            padding: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .cart-icon-link:hover {
+            color: #3b82f6;
         }
         
         .cart-badge {
             position: absolute;
-            top: -8px;
-            right: -8px;
+            top: 0;
+            right: 0;
             background: #ef4444;
             color: white;
             border-radius: 50%;
@@ -142,6 +153,18 @@ $current_page = basename($_SERVER['PHP_SELF']);
             align-items: center;
             justify-content: center;
             border: 2px solid rgba(15, 23, 42, 0.95);
+            transform: translate(25%, -25%);
+        }
+        
+        /* Remove Bootstrap nav-link padding on mobile for cart */
+        @media (max-width: 991.98px) {
+            .navbar-nav .cart-icon-container {
+                padding: 0;
+            }
+            
+            .navbar-nav .cart-icon-link {
+                padding: 0.75rem 1rem;
+            }
         }
     </style>
 </head>
@@ -183,13 +206,15 @@ $current_page = basename($_SERVER['PHP_SELF']);
                 </ul>
                 
                 <div class="navbar-nav">
-                    <!-- Cart Icon Only -->
-                    <a class="nav-link cart-icon position-relative" href="checkout.php">
-                        <i class="fas fa-shopping-cart"></i>
-                        <?php if ($cart_count > 0): ?>
-                            <span class="cart-badge"><?php echo $cart_count; ?></span>
-                        <?php endif; ?>
-                    </a>
+                    <!-- Cart Icon Only - FIXED -->
+                    <div class="cart-icon-container">
+                        <a class="cart-icon-link" href="checkout.php">
+                            <i class="fas fa-shopping-cart"></i>
+                            <?php if ($cart_count > 0): ?>
+                                <span class="cart-badge"><?php echo $cart_count; ?></span>
+                            <?php endif; ?>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
