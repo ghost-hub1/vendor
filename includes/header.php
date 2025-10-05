@@ -74,30 +74,46 @@ $current_page = basename($_SERVER['PHP_SELF']);
     <link rel="stylesheet" href="assets/css/style.css">
     
     <style>
-        /* Simple fixes only */
-        .cart-badge {
-            background: #dc3545; /* RED color */
-            color: white;
-            border-radius: 50%;
-            width: 18px;
-            height: 18px;
-            font-size: 0.7rem;
-            font-weight: bold;
-            display: flex;
+        /* Cart button styling from the second script */
+        .cart-btn {
+            position: relative;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            position: absolute;
-            top: 0;
-            right: 0;
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.9);
+            border: 1px solid rgba(15,23,42,0.04);
+            color: #0f172a;
+            text-decoration: none;
         }
-        
-        .fa-shopping-cart {
-            font-size: 1.2rem; /* Make cart icon more visible */
+        .cart-btn i { 
+            font-size: 1.25rem; 
             color: #6c757d;
         }
         
-        .cart-icon:hover .fa-shopping-cart {
+        .cart-btn:hover i {
             color: #495057;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            min-width: 22px;
+            height: 22px;
+            padding: 0 6px;
+            background: #ef4444; /* red */
+            color: #fff;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 3px 8px rgba(239,68,68,0.18);
+            border: 2px solid white;
         }
     </style>
 </head>
@@ -118,28 +134,29 @@ $current_page = basename($_SERVER['PHP_SELF']);
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
                         <a class="nav-link <?php echo $current_page == 'index.php' ? 'active' : ''; ?>" href="index.php">
-                            <i class="fas fa-home me-1"></i>Home
+                            🏠 <span class="ms-1">Home</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link <?php echo $current_page == 'about.php' ? 'active' : ''; ?>" href="about.php">
-                            <i class="fas fa-info-circle me-1"></i>About
+                            ℹ️ <span class="ms-1">About</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link <?php echo $current_page == 'products.php' ? 'active' : ''; ?>" href="products.php">
-                            <i class="fas fa-box-open me-1"></i>Products
+                            📦 <span class="ms-1">Products</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link <?php echo $current_page == 'contact.php' ? 'active' : ''; ?>" href="contact.php">
-                            <i class="fas fa-envelope me-1"></i>Contact
+                            📧 <span class="ms-1">Contact</span>
                         </a>
                     </li>
                 </ul>
                 
                 <div class="navbar-nav">
-                    <a class="nav-link cart-icon position-relative" href="checkout.php">
+                    <!-- Updated cart button using the design from second script -->
+                    <a href="checkout.php" class="cart-btn" title="View Cart & Checkout">
                         <i class="fas fa-shopping-cart"></i>
                         <?php if ($cart_count > 0): ?>
                             <span class="cart-badge"><?php echo $cart_count; ?></span>
