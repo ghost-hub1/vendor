@@ -57,22 +57,22 @@
         </div>
         <div class="row justify-content-center align-items-center g-4">
             <div class="col-6 col-md-3 col-lg-2 text-center">
-                <img src="assets/images/dell-logo.png" alt="Dell Technologies" class="img-fluid" style="height: 35px;">
+                <img src="assets/images/dell-logo.png" alt="Dell Technologies" class="img-fluid" style="height: 65px;">
             </div>
             <div class="col-6 col-md-3 col-lg-2 text-center">
-                <img src="assets/images/microsoft-logo.png" alt="Microsoft" class="img-fluid" style="height: 30px;">
+                <img src="assets/images/microsoft-logo.png" alt="Microsoft" class="img-fluid" style="height: 65px;">
             </div>
             <div class="col-6 col-md-3 col-lg-2 text-center">
-                <img src="assets/images/apple-logo.png" alt="Apple" class="img-fluid" style="height: 35px;">
+                <img src="assets/images/apple-logo.png" alt="Apple" class="img-fluid" style="height: 65px;">
             </div>
             <div class="col-6 col-md-3 col-lg-2 text-center">
-                <img src="assets/images/jabra-logo.png" alt="Jabra" class="img-fluid" style="height: 25px;">
+                <img src="assets/images/jabra-logo.png" alt="Jabra" class="img-fluid" style="height: 45px;">
             </div>
             <div class="col-6 col-md-3 col-lg-2 text-center">
-                <img src="assets/images/logitech-logo.png" alt="Logitech" class="img-fluid" style="height: 30px;">
+                <img src="assets/images/logitech-logo.png" alt="Logitech" class="img-fluid" style="height: 45px;">
             </div>
             <div class="col-6 col-md-3 col-lg-2 text-center">
-                <img src="assets/images/hp-logo.WEBP" alt="HP" class="img-fluid" style="height: 35px;">
+                <img src="assets/images/hp-logo.WEBP" alt="HP" class="img-fluid" style="height: 65px;">
             </div>
         </div>
     </div>
