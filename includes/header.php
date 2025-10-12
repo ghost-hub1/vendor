@@ -53,13 +53,30 @@ $total_price = array_sum(array_column($_SESSION['cart'], 'price'));
 
 // Get current page for active navigation
 $current_page = basename($_SERVER['PHP_SELF']);
+
+// Dynamic page titles
+$page_titles = [
+    'index.php' => 'Home',
+    'about.php' => 'About Us',
+    'products.php' => 'Products',
+    'contact.php' => 'Contact Us',
+    'checkout.php' => 'Checkout'
+];
+
+$current_title = isset($page_titles[$current_page]) ? $page_titles[$current_page] : 'Page';
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TechSolutions Pro - Professional IT Equipment</title>
+    <title><?php echo $current_title; ?> - TechSolutions Pro</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
