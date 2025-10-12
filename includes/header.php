@@ -72,11 +72,11 @@ $current_title = isset($page_titles[$current_page]) ? $page_titles[$current_page
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $current_title; ?> - TechSolutions Pro</title>
     
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
+    <!-- Favicon - SVG version for modern browsers -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect x='10' y='20' width='80' height='60' rx='5' fill='%233b82f6' stroke='%231e3a8a' stroke-width='2'/><rect x='20' y='30' width='60' height='35' fill='%230f172a'/><path d='M30 75 L70 75 L65 85 L35 85 Z' fill='%233b82f6'/><rect x='35' y='40' width='5' height='5' fill='%2334d399'/><rect x='45' y='40' width='5' height='5' fill='%23f59e0b'/><rect x='55' y='40' width='5' height='5' fill='%23ef4444'/><rect x='40' y='50' width='20' height='8' fill='%236b7280'/></svg>">
+    
+    <!-- Fallback favicon for older browsers -->
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAP///AP///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERH//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA">
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -236,3 +236,4 @@ $current_title = isset($page_titles[$current_page]) ? $page_titles[$current_page
             </div>
         </div>
     </nav>
+    
