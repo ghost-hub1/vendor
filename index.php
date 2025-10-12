@@ -60,7 +60,7 @@
                 <img src="assets/images/dell-logo.png" alt="Dell Technologies" class="img-fluid" style="height: 65px;">
             </div>
             <div class="col-6 col-md-3 col-lg-2 text-center">
-                <img src="assets/images/microsoft-logo.png" alt="Microsoft" class="img-fluid" style="height: 65px;">
+                <img src="assets/images/microsoft-logo.png" alt="Microsoft" class="img-fluid" style="height: 95px;">
             </div>
             <div class="col-6 col-md-3 col-lg-2 text-center">
                 <img src="assets/images/apple-logo.png" alt="Apple" class="img-fluid" style="height: 65px;">
