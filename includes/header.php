@@ -92,9 +92,9 @@ $current_title = isset($page_titles[$current_page]) ? $page_titles[$current_page
     
     <style>
         .navbar {
-            background: rgba(15, 23, 42, 0.95) !important;
+            background: rgba(55, 65, 81, 0.95) !important; /* Charcoal gray */
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
         }
         
         .navbar-brand {
@@ -107,29 +107,55 @@ $current_title = isset($page_titles[$current_page]) ? $page_titles[$current_page
         }
         
         .nav-link {
-            color: #e2e8f0 !important;
+            color: #f3f4f6 !important;
+            transition: all 0.3s ease;
+            position: relative;
         }
         
-        .nav-link:hover,
+        .nav-link:hover {
+            color: #3b82f6 !important;
+            transform: translateY(-1px);
+        }
+        
         .nav-link.active {
             color: #3b82f6 !important;
+            font-weight: 600;
+        }
+        
+        /* Active page indicator */
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0.75rem;
+            right: 0.75rem;
+            height: 2px;
+            background: #3b82f6;
+            border-radius: 2px;
         }
         
         .navbar-toggler {
-            border-color: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.25);
         }
         
         .navbar-toggler-icon {
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.8%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.9%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
         }
         
         /* Mobile menu background */
         @media (max-width: 991.98px) {
             .navbar-collapse {
-                background: rgba(15, 23, 42, 0.98);
+                background: rgba(55, 65, 81, 0.98);
                 border-radius: 0.5rem;
                 padding: 1rem;
                 margin-top: 0.5rem;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            
+            .nav-link.active::after {
+                left: 1rem;
+                right: 1rem;
+                bottom: 8px;
             }
         }
         
@@ -142,17 +168,19 @@ $current_title = isset($page_titles[$current_page]) ? $page_titles[$current_page
         
         .cart-icon-link {
             position: relative;
-            color: #e2e8f0;
+            color: #f3f4f6;
             font-size: 1.3rem;
             text-decoration: none;
             padding: 0.5rem;
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: all 0.3s ease;
         }
         
         .cart-icon-link:hover {
             color: #3b82f6;
+            transform: scale(1.1);
         }
         
         .cart-badge {
@@ -168,8 +196,8 @@ $current_title = isset($page_titles[$current_page]) ? $page_titles[$current_page
             font-weight: bold;
             display: flex;
             align-items: center;
-            justify-content: center;
-            border: 2px solid rgba(15, 23, 42, 0.95);
+            justi fy-content: center;
+            border: 2px solid rgba(55, 65, 81, 0.95);
             transform: translate(25%, -25%);
         }
         
@@ -236,4 +264,3 @@ $current_title = isset($page_titles[$current_page]) ? $page_titles[$current_page
             </div>
         </div>
     </nav>
-    
