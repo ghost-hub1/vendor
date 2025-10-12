@@ -22,7 +22,7 @@
             </div>
         </div>
         <div class="col-lg-6">
-            <img src="assets/images/about-hero.jpg" alt="About TechSolutions Pro" class="img-fluid rounded shadow">
+            <img src="assets/images/installation-team.jpg" alt="About TechSolutions Pro" class="img-fluid rounded shadow">
         </div>
     </div>
 
