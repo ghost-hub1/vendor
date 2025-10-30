@@ -66,10 +66,10 @@
                             <i class="fas fa-map-marker-alt me-2 text-primary"></i>San Francisco, CA
                         </li>
                         <li class="mb-2">
-                            <i class="fas fa-phone me-2 text-primary"></i>+1 (276) 356-4133
+                            <i class="fas fa-phone me-2 text-primary"></i>+1 (404) 939-1635
                         </li>
                         <li class="mb-2">
-                            <i class="fas fa-envelope me-2 text-primary"></i>techsolutionspro@proton.me
+                            <i class="fas fa-envelope me-2 text-primary"></i>protechsolutions@gmx.us
                         </li>
                         <li class="mb-2">
                             <i class="fas fa-clock me-2 text-primary"></i>Mon-Fri: 9AM-6PM PST

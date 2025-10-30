@@ -71,7 +71,7 @@
                         </div>
                         <div>
                             <h6 class="mb-1">Phone</h6>
-                            <p class="small text-muted mb-0">+1 (276) 356-4133<br>Mon-Fri, 9AM-6PM PST</p>
+                            <p class="small text-muted mb-0">+1 (404) 939-1635<br>Mon-Fri, 9AM-6PM PST</p>
                         </div>
                     </div>
                     
@@ -81,7 +81,7 @@
                         </div>
                         <div>
                             <h6 class="mb-1">Email</h6>
-                            <p class="small text-muted mb-0">techsolutionspro@proton.me</p>
+                            <p class="small text-muted mb-0">protechsolutions@gmx.us</p>
                         </div>
                     </div>
                 </div>

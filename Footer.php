@@ -42,8 +42,8 @@
                     <h6 class="mb-3">Contact Info</h6>
                     <ul class="list-unstyled text-muted">
                         <li class="mb-2"><i class="fas fa-map-marker-alt me-2"></i>San Francisco, CA</li>
-                        <li class="mb-2"><i class="fas fa-phone me-2"></i>+1 (276) 356-4133</li>
-                        <li class="mb-2"><i class="fas fa-envelope me-2"></i>techsolutionspro@proton.me</li>
+                        <li class="mb-2"><i class="fas fa-phone me-2"></i>+1 (404) 939-1635</li>
+                        <li class="mb-2"><i class="fas fa-envelope me-2"></i>protechsolutions@gmx.us</li>
                         <li class="mb-2"><i class="fas fa-clock me-2"></i>Mon-Fri: 9AM-6PM PST</li>
                     </ul>
                 </div>
