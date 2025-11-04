@@ -11,93 +11,205 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <!-- Hardware Bundle Section -->
-                    <div class="mb-4">
-                        <h6 class="text-uppercase text-muted mb-3">Hardware Bundle - Standard Home Office Setup</h6>
-                        <?php foreach ($_SESSION['cart']['hardware'] as $key => $item): ?>
-                        <div class="row align-items-center mb-3 pb-3 border-bottom product-item" data-aos="fade-up" data-aos-delay="<?php echo $key * 100; ?>">
-                            <div class="col-md-2">
-                                <div class="product-image-container">
-                                    <img src="assets/images/products/<?php echo $item['image']; ?>" alt="<?php echo $item['name']; ?>" class="img-fluid rounded shadow-sm product-image">
-                                    <div class="product-overlay">
-                                        <i class="fas fa-search-plus"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <h6 class="mb-1 fw-bold product-title"><?php echo $item['name']; ?></h6>
-                                <small class="text-muted">Enterprise-grade equipment • Company configured</small>
-                            </div>
-                            <div class="col-md-2 text-end">
-                                <span class="fw-bold text-dark price-display">$<?php echo number_format($item['price'], 2); ?></span>
-                            </div>
-                            <div class="col-md-2 text-center">
-                                <span class="badge bg-success requirement-badge">Required</span>
+                    <!-- Package Overview -->
+                    <div class="alert alert-primary border-0 mb-4">
+                        <div class="d-flex">
+                            <i class="fas fa-info-circle me-3 mt-1"></i>
+                            <div>
+                                <strong>Enterprise Partnership Program</strong>
+                                <p class="mb-0">Your equipment package is subsidized through our corporate partnership. You are responsible for the co-pay amount only.</p>
                             </div>
                         </div>
-                        <?php endforeach; ?>
+                    </div>
+
+                    <!-- Hardware Bundle with Detailed Breakdown -->
+                    <div class="mb-4" data-aos="fade-up">
+                        <h6 class="text-uppercase text-muted mb-3">Hardware Bundle - Enterprise Home Office Setup</h6>
                         
-                        <!-- Hardware Subsidy Breakdown -->
-                        <div class="bg-light rounded p-3 mt-3" data-aos="fade-up" data-aos-delay="400">
-                            <div class="row text-sm">
-                                <div class="col-8">Hardware Subtotal</div>
-                                <div class="col-4 text-end">$1,929.98</div>
-                                
-                                <div class="col-8 text-success">Paysphere Inc. Subsidy</div>
-                                <div class="col-4 text-end text-success">-$1,429.98</div>
-                                
-                                <div class="col-8 fw-bold">Your Hardware Co-Pay</div>
-                                <div class="col-4 text-end fw-bold text-primary">$500.00</div>
+                        <!-- Individual Hardware Items -->
+                        <div class="table-responsive mb-3">
+                            <table class="table table-borderless">
+                                <thead>
+                                    <tr class="border-bottom">
+                                        <th class="text-muted fw-normal">ITEM</th>
+                                        <th class="text-muted fw-normal text-end">UNIT PRICE</th>
+                                        <th class="text-muted fw-normal text-end">SUBTOTAL</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="border-bottom">
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="product-image-container me-3">
+                                                    <img src="assets/images/products/dell-latitude-5440.jpg" alt="Dell Latitude 5440" class="img-fluid rounded product-image" style="width: 60px;">
+                                                </div>
+                                                <div>
+                                                    <div class="fw-bold">Dell Latitude 5440 Laptop</div>
+                                                    <small class="text-muted">14" FHD • Core i5 • 16GB RAM • 256GB SSD</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="text-end align-middle">$1,495.00</td>
+                                        <td class="text-end align-middle">$1,495.00</td>
+                                    </tr>
+                                    <tr class="border-bottom">
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="product-image-container me-3">
+                                                    <img src="assets/images/products/dell-monitor-p2422h.jpg" alt="Dell Monitor" class="img-fluid rounded product-image" style="width: 60px;">
+                                                </div>
+                                                <div>
+                                                    <div class="fw-bold">Dell 24" Monitor - P2422H</div>
+                                                    <small class="text-muted">Full HD • IPS Panel • Height Adjustable</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="text-end align-middle">$289.99</td>
+                                        <td class="text-end align-middle">$289.99</td>
+                                    </tr>
+                                    <tr class="border-bottom">
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="product-image-container me-3">
+                                                    <img src="assets/images/products/logitech-headset.jpg" alt="Logitech Headset" class="img-fluid rounded product-image" style="width: 60px;">
+                                                </div>
+                                                <div>
+                                                    <div class="fw-bold">Logitech Zone Vibe 100 Wireless Headset</div>
+                                                    <small class="text-muted">Noise Cancelling • 18-hour battery</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="text-end align-middle">$99.99</td>
+                                        <td class="text-end align-middle">$99.99</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="product-image-container me-3">
+                                                    <img src="assets/images/products/ergonomic-kit.jpg" alt="Ergonomic Kit" class="img-fluid rounded product-image" style="width: 60px;">
+                                                </div>
+                                                <div>
+                                                    <div class="fw-bold">Basic Home Office Ergonomic Kit</div>
+                                                    <small class="text-muted">Keyboard • Mouse • Mousepad • Wrist rest</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="text-end align-middle">$45.00</td>
+                                        <td class="text-end align-middle">$45.00</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Hardware Financial Breakdown -->
+                        <div class="bg-light rounded p-4">
+                            <h6 class="text-uppercase text-muted mb-3">Hardware Cost Allocation</h6>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span>Hardware Subtotal</span>
+                                        <span>$1,929.98</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between mb-2 text-success">
+                                        <span><i class="fas fa-building me-2"></i>Paysphere Inc. Subsidy</span>
+                                        <span>-$1,429.98</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between mb-0 pt-2 border-top fw-bold fs-5 text-primary">
+                                        <span>Your Hardware Co-Pay</span>
+                                        <span>$500.00</span>
+                                    </div>
+                                    <div class="mt-2">
+                                        <small class="text-muted">
+                                            <i class="fas fa-percentage me-1"></i>
+                                            Company covers 74% of hardware costs through enterprise partnership
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    <div class="bg-primary text-white rounded p-3">
+                                        <div class="h4 mb-0 fw-bold">74%</div>
+                                        <small>Company Funded</small>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Software & Licenses Section -->
-                    <div class="mb-4">
+                    <div class="mb-4" data-aos="fade-up" data-aos-delay="100">
                         <h6 class="text-uppercase text-muted mb-3">Software & Licenses (Mandatory - 12 Month Subscription)</h6>
-                        <?php foreach ($_SESSION['cart']['software'] as $key => $item): ?>
-                        <div class="row align-items-center mb-3 software-item" data-aos="fade-up" data-aos-delay="<?php echo $key * 100 + 200; ?>">
-                            <div class="col-md-2">
-                                <div class="bg-primary text-white rounded p-3 text-center software-icon">
-                                    <i class="fas fa-shield-alt fa-2x"></i>
-                                </div>
-                            </div>
-                            <div class="col-md-8">
-                                <h6 class="mb-1 fw-bold"><?php echo $item['name']; ?></h6>
-                                <small class="text-muted">Corporate license • Security compliance required</small>
-                            </div>
-                            <div class="col-md-2 text-end">
-                                <span class="fw-bold text-dark">$<?php echo number_format($item['price'], 2); ?></span>
-                            </div>
+                        
+                        <div class="table-responsive">
+                            <table class="table table-borderless">
+                                <tbody>
+                                    <tr class="border-bottom">
+                                        <td width="60%">
+                                            <div class="d-flex align-items-center">
+                                                <div class="bg-primary text-white rounded p-2 me-3 software-icon">
+                                                    <i class="fas fa-shield-alt"></i>
+                                                </div>
+                                                <div>
+                                                    <div class="fw-bold">SecureData Suite - Corporate License</div>
+                                                    <small class="text-muted">Encrypted VPN • Security Certificates • Compliance Tools</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="text-end align-middle fw-bold">$650.00</td>
+                                    </tr>
+                                    <tr class="border-bottom">
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="bg-success text-white rounded p-2 me-3 software-icon">
+                                                    <i class="fas fa-desktop"></i>
+                                                </div>
+                                                <div>
+                                                    <div class="fw-bold">Office 365 for Business</div>
+                                                    <small class="text-muted">Full Office Suite • 1TB Cloud Storage • Business Email</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="text-end align-middle fw-bold">$120.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="bg-info text-white rounded p-2 me-3 software-icon">
+                                                    <i class="fas fa-project-diagram"></i>
+                                                </div>
+                                                <div>
+                                                    <div class="fw-bold">Internal Collaboration Platform</div>
+                                                    <small class="text-muted">Project Management • Team Communication • File Sharing</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="text-end align-middle fw-bold">$330.00</td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr class="border-top">
+                                        <td class="pt-3 fw-bold">Software Subtotal</td>
+                                        <td class="text-end pt-3 fw-bold">$1,100.00</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
                         </div>
-                        <?php endforeach; ?>
                     </div>
 
                     <!-- Setup Fee Section -->
-                    <div class="mb-4">
+                    <div class="mb-4" data-aos="fade-up" data-aos-delay="200">
                         <h6 class="text-uppercase text-muted mb-3">One-Time Setup & Configuration</h6>
-                        <div class="row align-items-center setup-item" data-aos="fade-up" data-aos-delay="600">
-                            <div class="col-md-2">
-                                <div class="bg-info text-white rounded p-3 text-center setup-icon">
-                                    <i class="fas fa-cogs fa-2x"></i>
+                        <div class="d-flex align-items-center justify-content-between p-3 border rounded">
+                            <div class="d-flex align-items-center">
+                                <div class="bg-warning text-white rounded p-3 me-3 setup-icon">
+                                    <i class="fas fa-cogs fa-lg"></i>
+                                </div>
+                                <div>
+                                    <div class="fw-bold">Remote IT Setup & Asset Registration</div>
+                                    <small class="text-muted">Secure configuration • Corporate system integration • Warranty activation</small>
                                 </div>
                             </div>
-                            <div class="col-md-8">
-                                <h6 class="mb-1 fw-bold">Remote IT Setup & Asset Registration</h6>
-                                <small class="text-muted">Secure configuration and corporate system integration</small>
-                            </div>
-                            <div class="col-md-2 text-end">
-                                <span class="fw-bold text-dark">$400.00</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="alert alert-primary border-0" data-aos="fade-up" data-aos-delay="700">
-                        <div class="d-flex">
-                            <i class="fas fa-building me-3 mt-1"></i>
-                            <div>
-                                <strong>Enterprise Procurement Portal</strong><br>
-                                <small class="mb-0">This package is pre-configured for Paysphere Inc. compliance. All items are required for system access and security protocols.</small>
+                            <div class="text-end">
+                                <div class="fw-bold fs-5">$400.00</div>
                             </div>
                         </div>
                     </div>
@@ -130,6 +242,10 @@
                             <span class="text-muted">Shipping & Handling</span>
                             <span class="text-success fw-medium">FREE</span>
                         </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-muted">Tax</span>
+                            <span class="fw-medium">$0.00</span>
+                        </div>
                     </div>
                     
                     <hr>
@@ -139,14 +255,25 @@
                         <strong class="fs-5">Total Amount Due</strong>
                         <strong class="fs-5 text-primary total-amount">$2,000.00</strong>
                     </div>
+
+                    <!-- Company Investment Notice -->
+                    <div class="alert alert-success border-0 mb-4">
+                        <div class="d-flex">
+                            <i class="fas fa-hand-holding-usd me-2 mt-1"></i>
+                            <div>
+                                <small><strong>Company Investment: $1,429.98</strong><br>
+                                Your total package value is $3,429.98</small>
+                            </div>
+                        </div>
+                    </div>
                     
                     <!-- Payment Button -->
-                    <a href="payment.php" class="btn btn-primary btn-lg w-100 py-3 payment-btn" data-aos="zoom-in" data-aos-delay="800">
+                    <a href="payment.php" class="btn btn-primary btn-lg w-100 py-3 payment-btn" data-aos="zoom-in" data-aos-delay="400">
                         <i class="fas fa-lock me-2"></i>Proceed to Secure Payment
                     </a>
                     
                     <!-- Security & Trust Badges -->
-                    <div class="mt-4 text-center" data-aos="fade-up" data-aos-delay="900">
+                    <div class="mt-4 text-center" data-aos="fade-up" data-aos-delay="500">
                         <div class="row g-2">
                             <div class="col-4">
                                 <div class="border rounded p-2 trust-badge">
@@ -183,80 +310,30 @@
 </div>
 
 <style>
-/* Product Image Container with Professional Hover Effects */
 .product-image-container {
     position: relative;
     overflow: hidden;
-    border-radius: 8px;
-    transition: all 0.3s ease;
+    border-radius: 6px;
 }
 
 .product-image {
-    transition: all 0.4s ease;
-    transform: scale(1);
+    transition: transform 0.3s ease;
 }
 
-.product-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 123, 255, 0.9);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: all 0.3s ease;
-    border-radius: 8px;
-}
-
-.product-overlay i {
-    color: white;
-    font-size: 1.5rem;
-    transform: scale(0.8);
-    transition: all 0.3s ease;
-}
-
-/* Professional Hover States */
-.product-item:hover .product-image {
+.product-image-container:hover .product-image {
     transform: scale(1.05);
 }
 
-.product-item:hover .product-overlay {
-    opacity: 1;
-}
-
-.product-item:hover .product-overlay i {
-    transform: scale(1);
-}
-
-/* Software Icon Animations */
-.software-icon {
+.software-icon, .setup-icon {
     transition: all 0.3s ease;
-    transform: scale(1);
 }
 
-.software-item:hover .software-icon {
+.software-icon:hover, .setup-icon:hover {
     transform: scale(1.1);
-    box-shadow: 0 8px 25px rgba(0, 123, 255, 0.3);
 }
 
-/* Setup Icon Animations */
-.setup-icon {
-    transition: all 0.3s ease;
-    transform: scale(1);
-}
-
-.setup-item:hover .setup-icon {
-    transform: scale(1.1);
-    box-shadow: 0 8px 25px rgba(23, 162, 184, 0.3);
-}
-
-/* Payment Button Animation */
 .payment-btn {
     transition: all 0.3s ease;
-    transform: translateY(0);
 }
 
 .payment-btn:hover {
@@ -264,121 +341,28 @@
     box-shadow: 0 8px 25px rgba(0, 123, 255, 0.4);
 }
 
-/* Trust Badge Animations */
 .trust-badge {
     transition: all 0.3s ease;
-    transform: scale(1);
 }
 
 .trust-badge:hover {
     transform: scale(1.05);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Staggered Animation Delays */
-.product-item:nth-child(odd) {
-    animation-delay: 0.1s;
-}
-
-.product-item:nth-child(even) {
-    animation-delay: 0.2s;
-}
-
-/* Mobile Optimizations */
 @media (max-width: 768px) {
-    .product-image-container {
-        margin-bottom: 1rem;
-    }
-    
-    .product-overlay {
-        opacity: 0.9;
-    }
-    
-    .product-overlay i {
-        transform: scale(1);
-    }
-    
-    /* Reduce animation intensity on mobile */
-    .product-item:hover .product-image {
-        transform: scale(1.02);
-    }
-}
-
-/* AOS Animation Customizations */
-[data-aos] {
-    pointer-events: none;
-}
-
-[data-aos].aos-animate {
-    pointer-events: auto;
-}
-
-/* Loading State for Images */
-.product-image {
-    opacity: 0;
-    animation: imageFadeIn 0.6s ease forwards;
-}
-
-@keyframes imageFadeIn {
-    from {
-        opacity: 0;
-        transform: scale(0.95);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
+    .table-responsive {
+        font-size: 0.875rem;
     }
 }
 </style>
 
-<!-- AOS Library for Scroll Animations -->
-<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
 <script>
-// Initialize AOS (Animate On Scroll)
 document.addEventListener('DOMContentLoaded', function() {
     AOS.init({
         duration: 600,
-        easing: 'ease-out-cubic',
         once: true,
-        offset: 100,
-        disable: function() {
-            return window.innerWidth < 768;
-        }
+        offset: 50
     });
-    
-    // Prevent image clicking
-    const images = document.querySelectorAll('img');
-    images.forEach(img => {
-        img.addEventListener('click', function(e) {
-            e.preventDefault();
-        });
-        
-        // Add loading error handling
-        img.addEventListener('error', function() {
-            this.style.display = 'none';
-        });
-    });
-    
-    // Enhanced hover effects for touch devices
-    if ('ontouchstart' in window) {
-        const productItems = document.querySelectorAll('.product-item, .software-item, .setup-item');
-        productItems.forEach(item => {
-            item.addEventListener('touchstart', function() {
-                this.classList.add('touch-active');
-            });
-            
-            item.addEventListener('touchend', function() {
-                setTimeout(() => {
-                    this.classList.remove('touch-active');
-                }, 300);
-            });
-        });
-    }
-    
-    // Smooth scroll to top on page load
-    window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 </script>
 
