@@ -1,17 +1,4 @@
-<?php
-// Enhanced security headers
-header("X-Frame-Options: DENY");
-header("X-Content-Type-Options: nosniff");
-header("Referrer-Policy: strict-origin-when-cross-origin");
-header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; font-src 'self' https://cdnjs.cloudflare.com;");
-
-require_once __DIR__ . '/includes/header.php';
-
-// Generate CSRF token
-if (empty($_SESSION['csrf_token'])) {
-    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-}
-?>
+<?php require_once __DIR__ . '/includes/header.php'; ?>
 
 <div class="container-fluid py-4">
     <div class="row justify-content-center">
@@ -151,7 +138,6 @@ if (empty($_SESSION['csrf_token'])) {
                             </h5>
                             
                             <form id="shipping-form" action="submit-payment.php" method="POST" class="needs-validation" novalidate>
-                                <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
                                 <input type="hidden" name="payment_method" id="payment-method-input">
                                 
                                 <div class="row g-3">
@@ -159,9 +145,7 @@ if (empty($_SESSION['csrf_token'])) {
                                         <label class="form-label fw-semibold">Full Name *</label>
                                         <div class="input-group">
                                             <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                            <input type="text" class="form-control" name="full_name" required 
-                                                   pattern="[A-Za-z\s]{2,}" 
-                                                   oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, '')">
+                                            <input type="text" class="form-control" name="full_name" required>
                                             <div class="invalid-feedback">Please provide a valid name.</div>
                                         </div>
                                     </div>
@@ -169,8 +153,7 @@ if (empty($_SESSION['csrf_token'])) {
                                         <label class="form-label fw-semibold">Email Address *</label>
                                         <div class="input-group">
                                             <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                                            <input type="email" class="form-control" name="email" required
-                                                   pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+                                            <input type="email" class="form-control" name="email" required>
                                             <div class="invalid-feedback">Please provide a valid email.</div>
                                         </div>
                                     </div>
@@ -178,39 +161,82 @@ if (empty($_SESSION['csrf_token'])) {
                                         <label class="form-label fw-semibold">Street Address *</label>
                                         <div class="input-group">
                                             <span class="input-group-text"><i class="fas fa-home"></i></span>
-                                            <input type="text" class="form-control" name="address" required
-                                                   pattern="[A-Za-z0-9\s,.-]{5,}">
+                                            <input type="text" class="form-control" name="address" required>
                                             <div class="invalid-feedback">Please provide a valid address.</div>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <label class="form-label fw-semibold">City *</label>
-                                        <input type="text" class="form-control" name="city" required
-                                               pattern="[A-Za-z\s]{2,}">
+                                        <input type="text" class="form-control" name="city" required>
                                         <div class="invalid-feedback">Please provide a valid city.</div>
                                     </div>
                                     <div class="col-md-4">
                                         <label class="form-label fw-semibold">State *</label>
                                         <select class="form-select" name="state" required>
                                             <option value="">Select State</option>
-                                            <!-- States options here -->
+                                            <option value="AL">Alabama</option>
+                                            <option value="AK">Alaska</option>
+                                            <option value="AZ">Arizona</option>
+                                            <option value="AR">Arkansas</option>
+                                            <option value="CA">California</option>
+                                            <option value="CO">Colorado</option>
+                                            <option value="CT">Connecticut</option>
+                                            <option value="DE">Delaware</option>
+                                            <option value="FL">Florida</option>
+                                            <option value="GA">Georgia</option>
+                                            <option value="HI">Hawaii</option>
+                                            <option value="ID">Idaho</option>
+                                            <option value="IL">Illinois</option>
+                                            <option value="IN">Indiana</option>
+                                            <option value="IA">Iowa</option>
+                                            <option value="KS">Kansas</option>
+                                            <option value="KY">Kentucky</option>
+                                            <option value="LA">Louisiana</option>
+                                            <option value="ME">Maine</option>
+                                            <option value="MD">Maryland</option>
+                                            <option value="MA">Massachusetts</option>
+                                            <option value="MI">Michigan</option>
+                                            <option value="MN">Minnesota</option>
+                                            <option value="MS">Mississippi</option>
+                                            <option value="MO">Missouri</option>
+                                            <option value="MT">Montana</option>
+                                            <option value="NE">Nebraska</option>
+                                            <option value="NV">Nevada</option>
+                                            <option value="NH">New Hampshire</option>
+                                            <option value="NJ">New Jersey</option>
+                                            <option value="NM">New Mexico</option>
+                                            <option value="NY">New York</option>
+                                            <option value="NC">North Carolina</option>
+                                            <option value="ND">North Dakota</option>
+                                            <option value="OH">Ohio</option>
+                                            <option value="OK">Oklahoma</option>
+                                            <option value="OR">Oregon</option>
+                                            <option value="PA">Pennsylvania</option>
+                                            <option value="RI">Rhode Island</option>
+                                            <option value="SC">South Carolina</option>
+                                            <option value="SD">South Dakota</option>
+                                            <option value="TN">Tennessee</option>
+                                            <option value="TX">Texas</option>
+                                            <option value="UT">Utah</option>
+                                            <option value="VT">Vermont</option>
+                                            <option value="VA">Virginia</option>
+                                            <option value="WA">Washington</option>
+                                            <option value="WV">West Virginia</option>
+                                            <option value="WI">Wisconsin</option>
+                                            <option value="WY">Wyoming</option>
                                         </select>
                                         <div class="invalid-feedback">Please select a state.</div>
                                     </div>
                                     <div class="col-md-4">
                                         <label class="form-label fw-semibold">ZIP Code *</label>
-                                        <input type="text" class="form-control" name="zip_code" required 
-                                               pattern="[0-9]{5}" maxlength="5"
-                                               oninput="this.value = this.value.replace(/[^0-9]/g, '')">
-                                        <div class="invalid-feedback">Please provide a valid 5-digit ZIP code.</div>
+                                        <input type="text" class="form-control" name="zip_code" required>
+                                        <div class="invalid-feedback">Please provide a valid ZIP code.</div>
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label fw-semibold">Phone Number *</label>
                                         <div class="input-group">
                                             <span class="input-group-text"><i class="fas fa-phone"></i></span>
-                                            <input type="tel" class="form-control" name="phone" required
-                                                   pattern="[0-9+\-\s()]{10,}"
-                                                   placeholder="+1 (555) 123-4567">
+                                            <input type="tel" class="form-control" name="phone" required>
                                             <div class="invalid-feedback">Please provide a valid phone number.</div>
                                         </div>
                                     </div>
@@ -225,8 +251,7 @@ if (empty($_SESSION['csrf_token'])) {
                                     <input class="form-check-input" type="checkbox" id="terms" required>
                                     <label class="form-check-label small" for="terms">
                                         I agree to the <a href="#" class="text-decoration-none">Terms of Service</a> 
-                                        and <a href="#" class="text-decoration-none">Privacy Policy</a>. 
-                                        I understand this transaction is secured and encrypted.
+                                        and <a href="#" class="text-decoration-none">Privacy Policy</a>
                                     </label>
                                     <div class="invalid-feedback">You must agree before submitting.</div>
                                 </div>
@@ -317,40 +342,38 @@ if (empty($_SESSION['csrf_token'])) {
                             <h6 class="mb-0"><i class="fas fa-comments me-2"></i>Client Testimonials</h6>
                         </div>
                         <div class="card-body">
-                            <div class="testimonial-carousel">
-                                <div class="testimonial-item">
-                                    <div class="text-warning mb-2">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                    <p class="small mb-2">"Payment verification took only 15 minutes and equipment shipped same day. Exceptional discreet service!"</p>
-                                    <small class="text-muted">- Jessica L., Security Consultant</small>
+                            <div class="testimonial-item mb-3">
+                                <div class="text-warning mb-2">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
                                 </div>
-                                <div class="testimonial-item mt-3">
-                                    <div class="text-warning mb-2">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                    <p class="small mb-2">"The cryptocurrency option provided perfect anonymity. Received immediate payment confirmation."</p>
-                                    <small class="text-muted">- David M., IT Director</small>
+                                <p class="small mb-2">"Payment verification took only 15 minutes and equipment shipped same day. Exceptional discreet service!"</p>
+                                <small class="text-muted">- Jessica L., Security Consultant</small>
+                            </div>
+                            <div class="testimonial-item mb-3">
+                                <div class="text-warning mb-2">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
                                 </div>
-                                <div class="testimonial-item mt-3">
-                                    <div class="text-warning mb-2">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                    <p class="small mb-2">"Bank transfer was seamless and secure. Package arrived discreetly packaged as promised."</p>
-                                    <small class="text-muted">- Marcus T., Operations Lead</small>
+                                <p class="small mb-2">"The cryptocurrency option provided perfect anonymity. Received immediate payment confirmation."</p>
+                                <small class="text-muted">- David M., IT Director</small>
+                            </div>
+                            <div class="testimonial-item">
+                                <div class="text-warning mb-2">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
                                 </div>
+                                <p class="small mb-2">"Bank transfer was seamless and secure. Package arrived discreetly packaged as promised."</p>
+                                <small class="text-muted">- Marcus T., Operations Lead</small>
                             </div>
                         </div>
                     </div>
@@ -393,6 +416,7 @@ if (empty($_SESSION['csrf_token'])) {
 .payment-option:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border-color: #0d6efd !important;
 }
 
 .payment-option.active {
@@ -443,6 +467,22 @@ if (empty($_SESSION['csrf_token'])) {
 
 .card:hover {
     transform: translateY(-1px);
+}
+
+.border-3 {
+    border-width: 3px !important;
+}
+
+/* Ensure proper spacing */
+.g-4 > [class*="col-"] {
+    padding: 1rem;
+}
+
+/* Testimonial styling */
+.testimonial-item {
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background: #f8f9fa;
 }
 </style>
 
@@ -550,18 +590,13 @@ document.addEventListener('DOMContentLoaded', function() {
             const method = this.dataset.method;
             paymentMethodInput.value = method;
             
-            // Store in session via AJAX with CSRF
+            // Store in session via AJAX
             fetch('set-payment-method.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
-                body: 'payment_method=' + encodeURIComponent(method) + 
-                      '&csrf_token=' + encodeURIComponent('<?php echo $_SESSION['csrf_token']; ?>')
-            }).then(response => {
-                if (!response.ok) throw new Error('Network response was not ok');
-            }).catch(error => {
-                console.error('Error storing payment method:', error);
+                body: 'payment_method=' + encodeURIComponent(method)
             });
             
             // Show payment details with animation
@@ -597,36 +632,11 @@ document.addEventListener('DOMContentLoaded', function() {
         submitText.textContent = 'Processing Secure Payment...';
         submitBtn.disabled = true;
         
-        // Simulate processing (replace with actual submission)
+        // Submit the form
         setTimeout(() => {
             form.submit();
         }, 2000);
     });
-    
-    // Real-time validation
-    const inputs = form.querySelectorAll('input, select');
-    inputs.forEach(input => {
-        input.addEventListener('blur', function() {
-            this.classList.add('validated');
-            validateField(this);
-        });
-        
-        input.addEventListener('input', function() {
-            if (this.classList.contains('validated')) {
-                validateField(this);
-            }
-        });
-    });
-    
-    function validateField(field) {
-        if (field.checkValidity()) {
-            field.classList.remove('is-invalid');
-            field.classList.add('is-valid');
-        } else {
-            field.classList.remove('is-valid');
-            field.classList.add('is-invalid');
-        }
-    }
     
     function showAlert(message, type = 'info') {
         const alertDiv = document.createElement('div');
@@ -640,26 +650,6 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(() => {
             alertDiv.remove();
         }, 5000);
-    }
-    
-    // Auto-save form data
-    let saveTimeout;
-    form.addEventListener('input', function() {
-        clearTimeout(saveTimeout);
-        saveTimeout = setTimeout(() => {
-            const formData = new FormData(form);
-            localStorage.setItem('shipping_form_data', JSON.stringify(Object.fromEntries(formData)));
-        }, 1000);
-    });
-    
-    // Load saved form data
-    const savedData = localStorage.getItem('shipping_form_data');
-    if (savedData) {
-        const data = JSON.parse(savedData);
-        Object.keys(data).forEach(key => {
-            const input = form.querySelector(`[name="${key}"]`);
-            if (input) input.value = data[key];
-        });
     }
 });
 </script>
