@@ -18,7 +18,7 @@ $order_id = $order_data['order_id'] ?? 'TS' . date('YmdHis') . strtoupper(uniqid
 
 // Safe data access functions
 function getOrderValue($data, $key, $default = '') {
-    return isset($data[$key]) ? $data[$key] : $default;
+    return isset($data[$key]) ? htmlspecialchars($data[$key]) : $default;
 }
 
 function formatCurrency($amount) {
@@ -29,242 +29,342 @@ function formatCurrency($amount) {
 $subtotal = getOrderValue($order_data, 'order_total', 0) / 1.08;
 $tax_amount = $subtotal * 0.08;
 $final_total = getOrderValue($order_data, 'order_total', 0);
+
+// Get payment method with proper formatting
+$payment_method = getOrderValue($order_data, 'payment_method', 'Pending Selection');
+$payment_icons = [
+    'Bank Transfer' => 'fas fa-university',
+    'Cryptocurrency' => 'fab fa-bitcoin', 
+    'Wire Transfer' => 'fas fa-exchange-alt'
+];
+$payment_icon = $payment_icons[$payment_method] ?? 'fas fa-credit-card';
 ?>
 
-<div class="container py-5">
+<div class="container-fluid py-4">
     <div class="row justify-content-center">
-        <div class="col-lg-10">
-            <div class="card border-0 shadow-sm">
+        <div class="col-xxl-10">
+            <!-- Success Header -->
+            <div class="card border-0 shadow-sm mb-4">
                 <div class="card-header bg-success text-white py-4">
-                    <div class="d-flex align-items-center">
-                        <i class="fas fa-check-circle fa-2x me-3"></i>
-                        <div>
-                            <h4 class="mb-1">Order Submitted Successfully!</h4>
-                            <p class="mb-0">Your order #<?php echo htmlspecialchars($order_id); ?> has been received and is being processed.</p>
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <div class="d-flex align-items-center">
+                                <div class="success-icon me-4">
+                                    <i class="fas fa-check-circle fa-3x"></i>
+                                </div>
+                                <div>
+                                    <h2 class="mb-2 fw-bold">Order Confirmed & Secure</h2>
+                                    <p class="mb-0 fs-5">Your order <strong>#<?php echo $order_id; ?></strong> has been encrypted and queued for processing</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 text-md-end">
+                            <div class="security-badge">
+                                <i class="fas fa-shield-alt fa-2x me-2"></i>
+                                <span class="fs-6">End-to-End Encrypted</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-                
-                <div class="card-body p-4">
-                    <!-- Quick Action Buttons -->
-                    <div class="row mb-4">
-                        <div class="col-md-4">
-                            <button class="btn btn-outline-primary w-100" onclick="window.print()">
-                                <i class="fas fa-print me-2"></i>Print Receipt
-                            </button>
-                        </div>
-                        <div class="col-md-4">
-                            <button class="btn btn-outline-success w-100" id="emailReceiptBtn">
-                                <i class="fas fa-envelope me-2"></i>Email Receipt
-                            </button>
-                        </div>
-                        <div class="col-md-4">
-                            <a href="dashboard.php" class="btn btn-outline-dark w-100">
-                                <i class="fas fa-tachometer-alt me-2"></i>Go to Dashboard
-                            </a>
-                        </div>
-                    </div>
+            </div>
 
-                    <!-- Order Summary -->
-                    <div class="row">
-                        <!-- Order Details -->
-                        <div class="col-lg-6 mb-4">
-                            <div class="card border-0 h-100">
-                                <div class="card-header bg-light">
-                                    <h6 class="mb-0"><i class="fas fa-receipt me-2"></i>Order Information</h6>
-                                </div>
-                                <div class="card-body">
-                                    <div class="d-flex justify-content-between mb-2">
-                                        <span class="text-muted">Order ID:</span>
-                                        <strong><?php echo htmlspecialchars($order_id); ?></strong>
-                                    </div>
-                                    <div class="d-flex justify-content-between mb-2">
-                                        <span class="text-muted">Order Date:</span>
-                                        <strong><?php echo date('F j, Y \a\t g:i A', strtotime(getOrderValue($order_data, 'order_date', 'now'))); ?></strong>
-                                    </div>
-                                    <div class="d-flex justify-content-between mb-2">
-                                        <span class="text-muted">Payment Method:</span>
-                                        <strong class="text-success"><?php echo htmlspecialchars(getOrderValue($order_data, 'payment_method', 'Pending Selection')); ?></strong>
-                                    </div>
-                                    <div class="d-flex justify-content-between mb-2">
-                                        <span class="text-muted">Status:</span>
-                                        <span class="badge bg-warning">Awaiting Payment</span>
-                                    </div>
-                                    <hr>
-                                    <div class="d-flex justify-content-between mb-1">
-                                        <span class="text-muted">Subtotal:</span>
-                                        <span>$<?php echo formatCurrency($subtotal); ?></span>
-                                    </div>
-                                    <div class="d-flex justify-content-between mb-1">
-                                        <span class="text-muted">Tax (8%):</span>
-                                        <span>$<?php echo formatCurrency($tax_amount); ?></span>
-                                    </div>
-                                    <div class="d-flex justify-content-between mb-1">
-                                        <span class="text-muted">Shipping:</span>
-                                        <span class="text-success">FREE</span>
-                                    </div>
-                                    <hr>
-                                    <div class="d-flex justify-content-between fw-bold fs-5">
-                                        <span>Total Amount:</span>
-                                        <span class="text-primary">$<?php echo formatCurrency($final_total); ?></span>
-                                    </div>
-                                </div>
-                            </div>
+            <div class="row g-4">
+                <!-- Main Content -->
+                <div class="col-lg-8">
+                    <!-- Personal Confirmation Section -->
+                    <div class="card border-0 shadow-sm mb-4">
+                        <div class="card-header bg-dark text-white py-3">
+                            <h5 class="mb-0"><i class="fas fa-user-check me-2"></i>Order Confirmation</h5>
                         </div>
-
-                        <!-- Shipping Information -->
-                        <div class="col-lg-6 mb-4">
-                            <div class="card border-0 h-100">
-                                <div class="card-header bg-light">
-                                    <h6 class="mb-0"><i class="fas fa-truck me-2"></i>Shipping Information</h6>
-                                </div>
-                                <div class="card-body">
-                                    <div class="mb-3">
-                                        <strong class="d-block"><?php echo htmlspecialchars(getOrderValue($order_data, 'full_name')); ?></strong>
-                                        <?php if (!empty(getOrderValue($order_data, 'company'))): ?>
-                                            <span class="text-muted"><?php echo htmlspecialchars(getOrderValue($order_data, 'company')); ?></span>
-                                        <?php endif; ?>
-                                    </div>
-                                    <div class="mb-3">
-                                        <i class="fas fa-map-marker-alt text-muted me-2"></i>
-                                        <span><?php echo htmlspecialchars(getOrderValue($order_data, 'address')); ?></span>
-                                    </div>
-                                    <div class="mb-3">
-                                        <i class="fas fa-city text-muted me-2"></i>
-                                        <span><?php echo htmlspecialchars(getOrderValue($order_data, 'city')); ?>, <?php echo htmlspecialchars(getOrderValue($order_data, 'state')); ?> <?php echo htmlspecialchars(getOrderValue($order_data, 'zip_code')); ?></span>
-                                    </div>
-                                    <div class="mb-3">
-                                        <i class="fas fa-phone text-muted me-2"></i>
-                                        <span><?php echo htmlspecialchars(getOrderValue($order_data, 'phone')); ?></span>
-                                    </div>
-                                    <div class="mb-3">
-                                        <i class="fas fa-envelope text-muted me-2"></i>
-                                        <span><?php echo htmlspecialchars(getOrderValue($order_data, 'email')); ?></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Payment Verification Section -->
-                    <div class="card border-0 bg-light mb-4">
-                        <div class="card-body">
-                            <h5 class="mb-4"><i class="fas fa-check-circle me-2 text-success"></i>Payment Verification Required</h5>
-                            
+                        <div class="card-body p-4">
                             <div class="row align-items-center">
-                                <div class="col-md-8">
-                                    <p class="mb-3">Have you already completed the payment for your order using the selected method?</p>
-                                    <div class="alert alert-info border-0">
-                                        <i class="fas fa-info-circle me-2"></i>
-                                        <strong>Payment instructions have been sent to:</strong> 
-                                        <?php echo htmlspecialchars(getOrderValue($order_data, 'email')); ?>
+                                <div class="col-md-2 text-center">
+                                    <div class="avatar-circle bg-primary text-white">
+                                        <i class="fas fa-user fa-2x"></i>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="d-grid gap-2">
-                                        <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#paymentModal">
-                                            <i class="fas fa-check me-2"></i>Yes, Payment Made
-                                        </button>
-                                        <button class="btn btn-outline-secondary" id="waitingBtn">
-                                            <i class="fas fa-clock me-2"></i>Waiting for Details
-                                        </button>
+                                <div class="col-md-10">
+                                    <h4 class="text-primary mb-2"><?php echo getOrderValue($order_data, 'full_name'); ?></h4>
+                                    <p class="lead mb-3">
+                                        You have successfully selected <strong class="text-success"><?php echo $payment_method; ?></strong> 
+                                        as your payment method. Your delivery information has been securely recorded in our encrypted database.
+                                    </p>
+                                    
+                                    <div class="alert alert-success border-0">
+                                        <div class="d-flex align-items-center">
+                                            <i class="fas fa-envelope fa-2x me-3 text-success"></i>
+                                            <div>
+                                                <h6 class="mb-1">Payment Details Delivery</h6>
+                                                <p class="mb-0">
+                                                    Complete payment instructions will be sent to your secure email 
+                                                    <strong><?php echo getOrderValue($order_data, 'email'); ?></strong> 
+                                                    within the next <span class="text-danger fw-bold">30-60 minutes</span>.
+                                                </p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Next Steps Timeline -->
-                    <div class="card border-0">
-                        <div class="card-header bg-light">
-                            <h6 class="mb-0"><i class="fas fa-road me-2"></i>What Happens Next?</h6>
+                    <!-- Security Explanation -->
+                    <div class="card border-0 shadow-sm mb-4">
+                        <div class="card-header bg-primary text-white py-3">
+                            <h5 class="mb-0"><i class="fas fa-shield-alt me-2"></i>Enhanced Security Protocol</h5>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="row">
+                                <div class="col-md-2 text-center mb-3">
+                                    <i class="fas fa-lock fa-3x text-primary"></i>
+                                </div>
+                                <div class="col-md-10">
+                                    <h6 class="text-primary mb-3">Why Payment Details Are Sent via Secure Email</h6>
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            <div class="d-flex align-items-start">
+                                                <i class="fas fa-user-shield text-success me-3 mt-1"></i>
+                                                <div>
+                                                    <strong>Identity Verification</strong>
+                                                    <p class="small text-muted mb-0">Ensures payment instructions reach only the verified account owner</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="d-flex align-items-start">
+                                                <i class="fas fa-encryption text-warning me-3 mt-1"></i>
+                                                <div>
+                                                    <strong>Encrypted Communication</strong>
+                                                    <p class="small text-muted mb-0">Bank-level encryption protects sensitive financial information</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="d-flex align-items-start">
+                                                <i class="fas fa-history text-info me-3 mt-1"></i>
+                                                <div>
+                                                    <strong>Audit Trail</strong>
+                                                    <p class="small text-muted mb-0">Creates secure timestamped record of all communications</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="d-flex align-items-start">
+                                                <i class="fas fa-ban text-danger me-3 mt-1"></i>
+                                                <div>
+                                                    <strong>Fraud Prevention</strong>
+                                                    <p class="small text-muted mb-0">Prevents unauthorized access to payment credentials</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-3 p-3 bg-light rounded border">
+                                        <small class="text-muted">
+                                            <i class="fas fa-info-circle me-1"></i>
+                                            This security measure complies with international financial regulations and ensures your transaction remains completely confidential and protected against interception.
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Order Timeline -->
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-header bg-light py-3">
+                            <h6 class="mb-0"><i class="fas fa-road me-2"></i>Secure Processing Timeline</h6>
                         </div>
                         <div class="card-body">
-                            <div class="row text-center">
-                                <div class="col-md-2 mb-3">
-                                    <div class="bg-primary rounded-circle mx-auto d-flex align-items-center justify-content-center mb-2" style="width: 70px; height: 70px;">
-                                        <i class="fas fa-receipt text-white fa-2x"></i>
+                            <div class="stepper">
+                                <div class="step completed">
+                                    <div class="step-icon">
+                                        <i class="fas fa-shopping-cart"></i>
                                     </div>
-                                    <h6 class="small mb-1">Order Received</h6>
-                                    <small class="text-muted">Order confirmed</small>
+                                    <div class="step-content">
+                                        <h6 class="step-title">Order Placed</h6>
+                                        <small class="step-description">Encrypted order received</small>
+                                    </div>
                                 </div>
-                                <div class="col-md-2 mb-3">
-                                    <div class="bg-warning rounded-circle mx-auto d-flex align-items-center justify-content-center mb-2" style="width: 70px; height: 70px;">
-                                        <i class="fas fa-credit-card text-white fa-2x"></i>
+                                <div class="step active">
+                                    <div class="step-icon">
+                                        <i class="fas fa-envelope"></i>
                                     </div>
-                                    <h6 class="small mb-1">Payment Processing</h6>
-                                    <small class="text-muted">Awaiting payment</small>
+                                    <div class="step-content">
+                                        <h6 class="step-title">Payment Details Sent</h6>
+                                        <small class="step-description">Secure email dispatched</small>
+                                    </div>
                                 </div>
-                                <div class="col-md-2 mb-3">
-                                    <div class="bg-secondary rounded-circle mx-auto d-flex align-items-center justify-content-center mb-2" style="width: 70px; height: 70px;">
-                                        <i class="fas fa-check-circle text-white fa-2x"></i>
+                                <div class="step">
+                                    <div class="step-icon">
+                                        <i class="fas fa-check-double"></i>
                                     </div>
-                                    <h6 class="small mb-1">Payment Verified</h6>
-                                    <small class="text-muted">Funds confirmed</small>
+                                    <div class="step-content">
+                                        <h6 class="step-title">Payment Verified</h6>
+                                        <small class="step-description">Funds confirmation</small>
+                                    </div>
                                 </div>
-                                <div class="col-md-2 mb-3">
-                                    <div class="bg-secondary rounded-circle mx-auto d-flex align-items-center justify-content-center mb-2" style="width: 70px; height: 70px;">
-                                        <i class="fas fa-shipping-fast text-white fa-2x"></i>
+                                <div class="step">
+                                    <div class="step-icon">
+                                        <i class="fas fa-shipping-fast"></i>
                                     </div>
-                                    <h6 class="small mb-1">Equipment Shipped</h6>
-                                    <small class="text-muted">Package dispatched</small>
+                                    <div class="step-content">
+                                        <h6 class="step-title">Equipment Shipped</h6>
+                                        <small class="step-description">Discreet packaging</small>
+                                    </div>
                                 </div>
-                                <div class="col-md-2 mb-3">
-                                    <div class="bg-secondary rounded-circle mx-auto d-flex align-items-center justify-content-center mb-2" style="width: 70px; height: 70px;">
-                                        <i class="fas fa-laptop text-white fa-2x"></i>
+                                <div class="step">
+                                    <div class="step-icon">
+                                        <i class="fas fa-laptop-code"></i>
                                     </div>
-                                    <h6 class="small mb-1">Setup & Training</h6>
-                                    <small class="text-muted">Remote setup</small>
+                                    <div class="step-content">
+                                        <h6 class="step-title">Remote Setup</h6>
+                                        <small class="step-description">Secure configuration</small>
+                                    </div>
                                 </div>
-                                <div class="col-md-2 mb-3">
-                                    <div class="bg-secondary rounded-circle mx-auto d-flex align-items-center justify-content-center mb-2" style="width: 70px; height: 70px;">
-                                        <i class="fas fa-flag text-white fa-2x"></i>
+                                <div class="step">
+                                    <div class="step-icon">
+                                        <i class="fas fa-flag-checkered"></i>
                                     </div>
-                                    <h6 class="small mb-1">Complete</h6>
-                                    <small class="text-muted">Ready to work</small>
+                                    <div class="step-content">
+                                        <h6 class="step-title">Operational</h6>
+                                        <small class="step-description">Ready for deployment</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="col-lg-4">
+                    <!-- Order Summary -->
+                    <div class="card border-0 shadow-sm mb-4">
+                        <div class="card-header bg-dark text-white py-3">
+                            <h6 class="mb-0"><i class="fas fa-receipt me-2"></i>Order Summary</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="order-item mb-3">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <div>
+                                        <h6 class="mb-1">Professional Equipment Package</h6>
+                                        <small class="text-muted">Advanced technical equipment suite</small>
+                                    </div>
+                                    <span class="badge bg-primary">Encrypted</span>
+                                </div>
+                            </div>
+                            
+                            <hr>
+                            
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Subtotal:</span>
+                                <span>$<?php echo formatCurrency($subtotal); ?></span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Tax (8%):</span>
+                                <span>$<?php echo formatCurrency($tax_amount); ?></span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Shipping:</span>
+                                <span class="text-success">SECURE & FREE</span>
+                            </div>
+                            <hr>
+                            <div class="d-flex justify-content-between fw-bold fs-5">
+                                <span>Total Amount:</span>
+                                <span class="text-primary">$<?php echo formatCurrency($final_total); ?></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Payment Method -->
+                    <div class="card border-0 shadow-sm mb-4">
+                        <div class="card-header bg-light py-3">
+                            <h6 class="mb-0"><i class="<?php echo $payment_icon; ?> me-2"></i>Selected Payment Method</h6>
+                        </div>
+                        <div class="card-body text-center p-4">
+                            <div class="payment-method-display">
+                                <i class="<?php echo $payment_icon; ?> fa-3x text-primary mb-3"></i>
+                                <h5 class="text-success"><?php echo $payment_method; ?></h5>
+                                <small class="text-muted">Secure transaction protocol activated</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Shipping Information -->
+                    <div class="card border-0 shadow-sm mb-4">
+                        <div class="card-header bg-light py-3">
+                            <h6 class="mb-0"><i class="fas fa-shipping-fast me-2"></i>Secure Delivery</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="shipping-info">
+                                <strong class="d-block mb-2"><?php echo getOrderValue($order_data, 'full_name'); ?></strong>
+                                <?php if (!empty(getOrderValue($order_data, 'company'))): ?>
+                                    <span class="text-muted d-block mb-2"><?php echo getOrderValue($order_data, 'company'); ?></span>
+                                <?php endif; ?>
+                                
+                                <div class="address-section mt-3">
+                                    <i class="fas fa-map-marker-alt text-muted me-2"></i>
+                                    <span><?php echo getOrderValue($order_data, 'address'); ?></span>
+                                </div>
+                                <div class="address-section">
+                                    <i class="fas fa-city text-muted me-2"></i>
+                                    <span><?php echo getOrderValue($order_data, 'city'); ?>, <?php echo getOrderValue($order_data, 'state'); ?> <?php echo getOrderValue($order_data, 'zip_code'); ?></span>
+                                </div>
+                                <div class="address-section">
+                                    <i class="fas fa-phone text-muted me-2"></i>
+                                    <span><?php echo getOrderValue($order_data, 'phone'); ?></span>
+                                </div>
+                                <div class="address-section">
+                                    <i class="fas fa-envelope text-muted me-2"></i>
+                                    <span><?php echo getOrderValue($order_data, 'email'); ?></span>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Support Information -->
-                    <div class="alert alert-warning mt-4">
-                        <div class="d-flex align-items-center">
-                            <i class="fas fa-life-ring fa-2x me-3"></i>
-                            <div>
-                                <h6 class="mb-1">Need Help with Your Payment?</h6>
-                                <p class="mb-0">Contact our support team at <strong>support@techsolutions.com</strong> or call <strong>1-800-TECH-PRO</strong></p>
+                    <!-- Quick Actions -->
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body">
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-outline-primary" onclick="window.print()">
+                                    <i class="fas fa-print me-2"></i>Print Confirmation
+                                </button>
+                                <button class="btn btn-outline-success" id="emailReceiptBtn">
+                                    <i class="fas fa-paper-plane me-2"></i>Resend Details
+                                </button>
+                                <a href="dashboard.php" class="btn btn-outline-dark">
+                                    <i class="fas fa-tachometer-alt me-2"></i>Control Panel
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
 
-<!-- Payment Processing Modal -->
-<div class="modal fade" id="paymentModal" tabindex="-1">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header bg-primary text-white">
-                <h5 class="modal-title"><i class="fas fa-cog me-2"></i>Payment Verification</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body text-center py-5">
-                <div class="spinner-border text-primary mb-4" style="width: 3rem; height: 3rem;" role="status">
-                    <span class="visually-hidden">Processing...</span>
-                </div>
-                <h4 class="mb-3">Verifying Your Payment</h4>
-                <p class="text-muted mb-4">We are currently verifying your payment details. This may take a few moments.</p>
-                
-                <div class="progress mb-4" style="height: 8px;">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 100%"></div>
-                </div>
-                
-                <div class="alert alert-info">
-                    <i class="fas fa-info-circle me-2"></i>
-                    Once verified, you will be automatically redirected to your dashboard.
+            <!-- Support Section -->
+            <div class="card border-0 shadow-sm mt-4">
+                <div class="card-body text-center py-4">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-8">
+                            <h5 class="mb-3"><i class="fas fa-headset me-2"></i>Elite Support Available</h5>
+                            <p class="text-muted mb-3">
+                                Our dedicated security team is available 24/7 to assist with your order and ensure complete operational readiness.
+                            </p>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <i class="fas fa-envelope text-primary me-2"></i>
+                                        <strong>support@tech-operations.com</strong>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <i class="fas fa-phone text-success me-2"></i>
+                                        <strong>1-800-OP-SECURE</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -276,71 +376,192 @@ $final_total = getOrderValue($order_data, 'order_total', 0);
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header bg-success text-white">
-                <h5 class="modal-title"><i class="fas fa-check-circle me-2"></i>Receipt Sent</h5>
+                <h5 class="modal-title"><i class="fas fa-paper-plane me-2"></i>Details Resent</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body text-center py-4">
-                <i class="fas fa-envelope-open-text fa-3x text-success mb-3"></i>
-                <h4>Receipt Sent!</h4>
-                <p class="text-muted">Your order receipt has been sent to <?php echo htmlspecialchars(getOrderValue($order_data, 'email')); ?></p>
+                <i class="fas fa-check-circle fa-3x text-success mb-3"></i>
+                <h4>Secure Email Sent!</h4>
+                <p class="text-muted">Payment instructions have been re-sent to your secure email address.</p>
             </div>
         </div>
     </div>
 </div>
 
+<style>
+.success-icon {
+    animation: bounceIn 1s ease-in-out;
+}
+
+.avatar-circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.security-badge {
+    background: rgba(255,255,255,0.2);
+    padding: 10px 15px;
+    border-radius: 25px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.stepper {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+
+.stepper::before {
+    content: '';
+    position: absolute;
+    top: 30px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #e9ecef;
+    z-index: 1;
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+    flex: 1;
+}
+
+.step-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    background: #e9ecef;
+    color: #6c757d;
+    transition: all 0.3s ease;
+}
+
+.step.completed .step-icon {
+    background: #198754;
+    color: white;
+}
+
+.step.active .step-icon {
+    background: #0d6efd;
+    color: white;
+    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.3);
+    animation: pulse 2s infinite;
+}
+
+.step-content {
+    text-align: center;
+}
+
+.step-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.step-description {
+    font-size: 0.8rem;
+    color: #6c757d;
+}
+
+.address-section {
+    padding: 8px 0;
+    border-bottom: 1px solid #f8f9fa;
+}
+
+.address-section:last-child {
+    border-bottom: none;
+}
+
+.payment-method-display {
+    padding: 20px;
+    border: 2px dashed #0d6efd;
+    border-radius: 10px;
+    background: rgba(13, 110, 253, 0.05);
+}
+
+@keyframes bounceIn {
+    0% { transform: scale(0.3); opacity: 0; }
+    50% { transform: scale(1.05); opacity: 1; }
+    100% { transform: scale(1); }
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(13, 110, 253, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(13, 110, 253, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(13, 110, 253, 0); }
+}
+
+.card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+}
+
+.btn {
+    transition: all 0.3s ease;
+}
+
+@media print {
+    .btn, .modal, .stepper::before {
+        display: none !important;
+    }
+    .card {
+        border: 1px solid #000 !important;
+        box-shadow: none !important;
+    }
+}
+</style>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const waitingBtn = document.getElementById('waitingBtn');
-    const paymentModal = document.getElementById('paymentModal');
     const emailReceiptBtn = document.getElementById('emailReceiptBtn');
     const successModal = new bootstrap.Modal(document.getElementById('successModal'));
-    
-    // Waiting for payment details
-    if (waitingBtn) {
-        waitingBtn.addEventListener('click', function() {
-            const modal = new bootstrap.Modal(paymentModal);
-            modal.show();
-            
-            // Simulate processing and redirect
-            setTimeout(function() {
-                window.location.href = 'thankyou.php?status=processing';
-            }, 5000);
-        });
-    }
     
     // Email receipt button
     if (emailReceiptBtn) {
         emailReceiptBtn.addEventListener('click', function() {
+            // Show loading state
+            const originalText = emailReceiptBtn.innerHTML;
+            emailReceiptBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Sending...';
+            emailReceiptBtn.disabled = true;
+            
             // Simulate sending email
             setTimeout(function() {
+                emailReceiptBtn.innerHTML = originalText;
+                emailReceiptBtn.disabled = false;
                 successModal.show();
-            }, 1000);
+            }, 2000);
         });
     }
     
-    // Auto-redirect for "Yes" option after modal show
-    if (paymentModal) {
-        paymentModal.addEventListener('show.bs.modal', function() {
-            setTimeout(function() {
-                window.location.href = 'thankyou.php?status=verified';
-            }, 5000);
-        });
-    }
-    
-    // Add print styles
-    const style = document.createElement('style');
-    style.textContent = `
-        @media print {
-            .btn, .modal, .alert-warning {
-                display: none !important;
-            }
-            .card {
-                border: 1px solid #000 !important;
-                box-shadow: none !important;
-            }
-        }
-    `;
-    document.head.appendChild(style);
+    // Add entrance animations
+    const cards = document.querySelectorAll('.card');
+    cards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        card.style.transition = 'all 0.6s ease';
+        
+        setTimeout(() => {
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+        }, index * 200);
+    });
 });
 </script>
 
